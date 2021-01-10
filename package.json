@@ -1,0 +1,47 @@
+{
+  "name": "react-singlePage-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "webpack-dev-server --config config/webpack.dev.js",
+    "build": "rimraf dist && webpack --config config/webpack.pro.js --progress --colors --profile"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "autoprefixer": "^8.1.0",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.10",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.0.4",
+    "node-sass": "^4.8.3",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "postcss-loader": "^2.1.1",
+    "react-hot-loader": "^4.3.4",
+    "rimraf": "^2.6.2",
+    "sass-loader": "^6.0.7",
+    "sass-resources-loader": "^1.3.3",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.11.1",
+    "webpack-merge": "^4.1.2"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
