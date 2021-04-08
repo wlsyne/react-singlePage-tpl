@@ -1,15 +1,16 @@
 {
-    "compilerOptions": {
-      "outDir": "./dist/",
-      "noImplicitAny": true,
-      "allowSyntheticDefaultImports": true,
-      "module": "es6",
-      "target": "es5",
-      "jsx": "react",
-      "allowJs": true,
-      "baseUrl": ".",
-      "paths": {
-        "@app/*": ["app/*"]
-      }
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["app/*"]
     }
-  }
+  },
+  "exclude": ["node_modules"]
+}

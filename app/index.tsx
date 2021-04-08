@@ -1,4 +1,8 @@
 import React from "react";
 import { render } from "react-dom";
 
-render(<div>hello world</div>, document.getElementById("app"));
+import BaseRouter from "./router/index";
+
+import './styles/reset.less';
+
+render(<BaseRouter />, document.getElementById("app"));

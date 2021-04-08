@@ -1,9 +1,7 @@
-const path = require("path");
-const webpack = require("webpack");
 const { root } = require("./utils");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const DEV = process.env.npm_lifecycle_event === "dev";
 
 module.exports = {
@@ -30,36 +28,25 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: { minimize: !DEV },
-            },
-          ],
-        }),
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: { minimize: !DEV },
-            },
-            { loader: "postcss-loader" },
-            { loader: "sass-loader" },
-            {
-              loader: "sass-resources-loader",
-              options: {
-                // it need a absolute path
-                resources: [
-                  path.resolve(__dirname, "../src/assets/style/_common.scss"),
-                ],
-              },
-            },
-          ],
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "less-loader",
+        ],
       },
       {
         test: /\.(eot|ttf|woff)(\?.*)?$/,
@@ -93,6 +80,7 @@ module.exports = {
       name: "vendor",
       chunks: "initial",
     },
+    minimizer: [new TerserPlugin()],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -101,15 +89,8 @@ module.exports = {
       filename: "./index.html",
       chunks: ["index", "vendor"],
     }),
-    new ExtractTextPlugin({
+    new MiniCssExtractPlugin({
       filename: "css/[name].css",
-    }),
-    new OptimizeCSSPlugin({
-      cssProcessorOptions: {
-        discardComments: { removeAll: true },
-        // 避免 cssnano 重新计算 z-index
-        safe: true,
-      },
     }),
   ],
 };
