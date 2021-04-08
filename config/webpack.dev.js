@@ -1,15 +1,16 @@
 const webpack = require("webpack");
-const webpackMerge = require("webpack-merge");
+const { merge } = require("webpack-merge");
 const common = require("./webpack.common");
 const { getIP, root } = require("./utils");
 
-module.exports = webpackMerge(common, {
+module.exports = merge(common, {
   mode: "development",
   output: {
     path: root(),
     publicPath: "/",
     filename: "js/[name].js",
   },
+  devtool: "eval-cheap-module-source-map",
   devServer: {
     historyApiFallback: true,
     stats: "minimal",
