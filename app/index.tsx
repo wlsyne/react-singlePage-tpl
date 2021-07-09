@@ -1,8 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
 
-import BaseRouter from "./router/index";
+import { App } from "./app";
 
-import './styles/reset.less';
+import "./styles/reset.less";
 
-render(<BaseRouter />, document.getElementById("app"));
+render(<App />, document.getElementById("app"));
+
