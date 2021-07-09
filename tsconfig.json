@@ -1,16 +1,27 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "noImplicitAny": true,
-    "allowSyntheticDefaultImports": true,
-    "module": "esnext",
-    "target": "es5",
-    "jsx": "react",
-    "allowJs": true,
+    "rootDir": ".",
+    "outDir": "build",
     "baseUrl": ".",
     "paths": {
       "@app/*": ["app/*"]
-    }
+    },
+    "noEmit": true,
+    "lib": ["dom", "dom.iterable", "esnext", "es2016"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "Node",
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "target": "ES6",
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictFunctionTypes": true
   },
   "exclude": ["node_modules"]
 }
