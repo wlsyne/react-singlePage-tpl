@@ -1,5 +1,7 @@
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
+
+const { generateScopedName } = require("./utils/generateScopedName");
 const common = require("./webpack.common");
 
 module.exports = merge(common, {
@@ -8,6 +10,7 @@ module.exports = merge(common, {
     historyApiFallback: true,
     hot: true,
     port: "9595",
+    stats: "minimal",
   },
   module: {
     rules: [
@@ -17,12 +20,7 @@ module.exports = merge(common, {
       },
       {
         test: /\.scss$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          "postcss-loader",
-          "sass-loader",
-        ],
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.less$/,
@@ -31,10 +29,13 @@ module.exports = merge(common, {
           {
             loader: "css-loader",
             options: {
-              modules: true,
+              modules: {
+                getLocalIdent(context, localIdentName, localName) {
+                  return generateScopedName(localName, context.resourcePath);
+                },
+              },
             },
           },
-          "postcss-loader",
           "less-loader",
         ],
       },
