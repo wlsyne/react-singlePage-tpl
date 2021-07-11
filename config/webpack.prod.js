@@ -1,7 +1,9 @@
 const { merge } = require("webpack-merge");
-const common = require("./webpack.common.js");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+
+const { generateScopedName } = require("./utils/generateScopedName");
+const common = require("./webpack.common.js");
 
 module.exports = merge(common, {
   output: {
@@ -11,7 +13,16 @@ module.exports = merge(common, {
     rules: [
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+            },
+          },
+          "postcss-loader",
+        ],
       },
       {
         test: /\.scss$/,
@@ -29,7 +40,11 @@ module.exports = merge(common, {
           {
             loader: "css-loader",
             options: {
-              modules: true,
+              modules: {
+                getLocalIdent(context, localIdentName, localName) {
+                  return generateScopedName(localName, context.resourcePath);
+                },
+              },
             },
           },
           "postcss-loader",

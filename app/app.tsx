@@ -1,13 +1,13 @@
 import * as React from "react";
 
-import Styles from "./styles/app.less";
+import "./styles/app.less";
 
 export interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
   return (
     <div>
-      <h1 className={Styles.title}>Hello! It's Alan</h1>
+      <h1 className='title' styleName="app_title">Hello! It's Alan</h1>
     </div>
   );
 };

@@ -27,7 +27,6 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        exclude: /node_modules\/(?!(@people\/ee-design|@people\/throne-biz)\/).*/,
         use: {
           loader: "url-loader",
           options: {
