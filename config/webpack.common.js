@@ -26,12 +26,24 @@ module.exports = {
         loader: "babel-loader",
       },
       {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: "babel-loader",
+          },
+          {
+            loader: "react-svg-loader",
+          },
+        ],
+      },
+      {
         test: /\.(png|jpe?g|gif)$/i,
         use: {
           loader: "url-loader",
           options: {
             limit: 10240,
             outputPath: "static",
+            name: "[name]_[contenthash:6].[ext]",
             publicPath: PUBLIC_PATH ? `${PUBLIC_PATH}static` : undefined,
           },
         },
@@ -44,6 +56,6 @@ module.exports = {
       template: "./public/index.html",
       filename: "./index.html",
       chunks: ["index", "vendor"],
-    })
+    }),
   ],
 };
