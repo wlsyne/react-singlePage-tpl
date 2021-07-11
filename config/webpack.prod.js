@@ -1,5 +1,6 @@
 const { merge } = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 const { generateScopedName } = require("./utils/generateScopedName");
@@ -64,5 +65,6 @@ module.exports = merge(common, {
     new MiniCssExtractPlugin({
       filename: "css/[name].[contenthash:6].css",
     }),
+    new CleanWebpackPlugin(),
   ],
 });
