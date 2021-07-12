@@ -7,7 +7,8 @@
     "start": "yarn dev",
     "start:debug": "nodemon -x \"yarn start\"",
     "dev": "NODE_ENV=development webpack serve --config config/webpack.dev.js",
-    "build": "NODE_ENV=production webpack --config config/webpack.prod.js --progress "
+    "build": "NODE_ENV=production webpack --config config/webpack.prod.js --progress ",
+    "typing": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -23,12 +24,17 @@
     "@types/react": "^17.0.3",
     "@types/react-css-modules": "^4.6.4",
     "@types/react-dom": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
     "autoprefixer": "^10.2.5",
     "babel-loader": "^8.2.2",
     "babel-plugin-react-css-modules": "^5.2.6",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
-    "core-js": "3",
     "css-loader": "^5.2.0",
+    "eslint": "^7.30.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "file-loader": "^6.2.0",
     "generic-names": "^2.0.1",
     "html-webpack-plugin": "^5.3.1",
@@ -54,6 +60,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
+    "core-js": "3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }
