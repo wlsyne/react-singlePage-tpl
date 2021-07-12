@@ -1,16 +1,23 @@
 {
   "presets": [
-    "@babel/preset-env",
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "useBuiltIns": "usage",
+        "corejs": {
+          "version": "3",
+          "proposals": true
+        }
+      }
+    ],
     "@babel/preset-react",
     "@babel/preset-typescript"
   ],
   "plugins": [
-    // [
-    //   "@babel/plugin-transform-runtime",
-    //   {
-    //     "corejs": 3
-    //   }
-    // ],
+    [
+      "@babel/plugin-transform-runtime"
+    ],
     [
       "react-css-modules",
       {
