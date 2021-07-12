@@ -27,6 +27,7 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-react-css-modules": "^5.2.6",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "core-js": "3",
     "css-loader": "^5.2.0",
     "file-loader": "^6.2.0",
     "generic-names": "^2.0.1",
@@ -52,6 +53,7 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
+    "@babel/runtime": "^7.14.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }
