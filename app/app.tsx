@@ -4,7 +4,6 @@ import spacemanImg from './assets/images/spaceman.png';
 import Icon from './assets/svgs/icon.svg';
 import './styles/app.less';
 
-
 const App: React.FC = () => {
   return (
     <div styleName="app">
