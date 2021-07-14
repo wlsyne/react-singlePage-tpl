@@ -8,6 +8,7 @@
     "start:debug": "nodemon -x \"yarn start\"",
     "dev": "NODE_ENV=development webpack serve --config config/webpack.dev.js",
     "build": "NODE_ENV=production webpack --config config/webpack.prod.js --progress ",
+    "build:watch": "NODE_ENV=production webpack --config config/webpack.prod.js --progress --watch",
     "typing": "tsc",
     "format": "prettier --write",
     "lint": "yarn eslint --ext .ts,.tsx --cache app",
