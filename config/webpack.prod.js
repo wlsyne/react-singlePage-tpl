@@ -1,5 +1,7 @@
 const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const { generateScopedName } = require('./utils/generateScopedName');
@@ -8,9 +10,8 @@ const common = require('./webpack.common.js');
 module.exports = merge(common, {
   output: {
     filename: 'js/[name].[contenthash:6].js',
+    chunkFilename: 'js/[name].[contenthash:6].js',
   },
-  mode: 'development',
-  devtool: false,
   module: {
     rules: [
       {
@@ -55,11 +56,13 @@ module.exports = merge(common, {
     //   name: 'vendor',
     //   chunks: 'initial',
     // },
+    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
     usedExports: true,
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:6].css',
+      chunkFilename: 'css/[name].[contenthash:6].css',
     }),
     new CleanWebpackPlugin(),
   ],

@@ -1,16 +1,17 @@
-import * as React from 'react';
+import React, { lazy } from 'react';
 
-import spacemanImg from './assets/images/spaceman.png';
-import Icon from './assets/svgs/icon.svg';
+import LazyComp from './components/LazyComp';
+
+import spacemanImg from '@app/assets/images/spaceman.png';
 import './styles/app.less';
 
+const Title = lazy(() => import(/* webpackChunkName: "App_Title" */ './components/Title'));
 const App: React.FC = () => {
   return (
     <div styleName="app">
-      <h1 className="title" styleName="app_title">
-        {"Hello! It's Alan"}
-        <Icon />
-      </h1>
+      <LazyComp>
+        <Title />
+      </LazyComp>
       <img src={spacemanImg} />
     </div>
   );

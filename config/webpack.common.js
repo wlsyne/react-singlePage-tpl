@@ -1,7 +1,11 @@
-const { root } = require('./utils/utils');
+const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { PUBLIC_PATH, ENV } = require('./env/index');
 
+const { root } = require('./utils/utils');
+const { PUBLIC_PATH, ENV } = require('./env/index');
+const { compressCss } = require('./utils/compressCss');
+
+const resetStyle = compressCss(resolve(__dirname, '../public/style/reset.css'));
 module.exports = {
   entry: {
     index: '@app/index',
@@ -52,10 +56,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: process.env.NODE_ENV,
-      template: './public/index.html',
+      template: './public/index.ejs',
       filename: './index.html',
-      chunks: ['index', 'vendor'],
+      templateParameters: {
+        ENV,
+        resetStyle,
+      },
     }),
   ],
 };
