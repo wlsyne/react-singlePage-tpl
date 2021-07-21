@@ -1,32 +1,55 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "modules": false,
-        "useBuiltIns": "usage",
-        "corejs": {
-          "version": "3",
-          "proposals": true
-        }
-      }
-    ],
-    ["@babel/preset-react"],
-    ["@babel/preset-typescript"]
-  ],
-  "plugins": [
-    ["@babel/plugin-transform-runtime"],
-    [
-      "react-css-modules",
-      {
-        "autoResolveMultipleImports": true,
-        "generateScopedName": "[local]__[hash:base64:5]",
-        "filetypes": {
-          ".less": {
-            "syntax": "postcss-less"
+  "presets": [["@babel/preset-react"], ["@babel/preset-typescript"]],
+  "plugins": [["@babel/plugin-transform-runtime"]],
+  "env": {
+    "default": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "modules": false,
+            "useBuiltIns": "usage",
+            "corejs": {
+              "version": "3",
+              "proposals": true
+            }
           }
-        }
-      }
-    ]
-  ]
+        ]
+      ],
+      "plugins": [
+        [
+          "react-css-modules",
+          {
+            "autoResolveMultipleImports": true,
+            "generateScopedName": "[local]__[hash:base64:5]",
+            "filetypes": {
+              ".less": {
+                "syntax": "postcss-less"
+              }
+            }
+          }
+        ]
+      ]
+    },
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": "usage",
+            "corejs": {
+              "version": "3",
+              "proposals": true
+            },
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ],
+      "plugins": [
+        ["babel-plugin-webpack-aliases", { "config": "./config/webpack.test.js" }]
+      ]
+    }
+  }
 }
