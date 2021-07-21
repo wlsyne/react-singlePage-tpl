@@ -1,14 +1,16 @@
-const { merge } = require("webpack-merge");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+const { merge } = require('webpack-merge');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const { generateScopedName } = require("./utils/generateScopedName");
-const common = require("./webpack.common.js");
+const { generateScopedName } = require('./utils/generateScopedName');
+const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   output: {
-    filename: "js/[name].[contenthash:6].js",
+    filename: 'js/[name].[contenthash:6].js',
+    chunkFilename: 'js/[name].[contenthash:6].js',
   },
   module: {
     rules: [
@@ -17,29 +19,24 @@ module.exports = merge(common, {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               importLoaders: 1,
             },
           },
-          "postcss-loader",
+          'postcss-loader',
         ],
       },
       {
         test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader",
-          "sass-loader",
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
         test: /\.less$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               modules: {
                 getLocalIdent(context, localIdentName, localName) {
@@ -48,22 +45,24 @@ module.exports = merge(common, {
               },
             },
           },
-          "postcss-loader",
-          "less-loader",
+          'postcss-loader',
+          'less-loader',
         ],
       },
     ],
   },
   optimization: {
-    splitChunks: {
-      name: "vendor",
-      chunks: "initial",
-    },
-    minimizer: [new TerserPlugin()],
+    // splitChunks: {
+    //   name: 'vendor',
+    //   chunks: 'initial',
+    // },
+    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
+    usedExports: true,
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "css/[name].[contenthash:6].css",
+      filename: 'css/[name].[contenthash:6].css',
+      chunkFilename: 'css/[name].[contenthash:6].css',
     }),
     new CleanWebpackPlugin(),
   ],

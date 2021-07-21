@@ -1,21 +1,25 @@
-const { root } = require("./utils/utils");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { PUBLIC_PATH, ENV } = require("./env/index");
+const { resolve } = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const { root } = require('./utils/utils');
+const { PUBLIC_PATH, ENV } = require('./env/index');
+const { compressCss } = require('./utils/compressCss');
+
+const resetStyle = compressCss(resolve(__dirname, '../public/style/reset.css'));
 module.exports = {
   entry: {
-    index: "@app/index",
+    index: '@app/index',
   },
   mode: ENV,
   output: {
-    path: root("dist"),
+    path: root('dist'),
     publicPath: PUBLIC_PATH,
-    filename: "js/[name].js",
+    filename: 'js/[name].js',
   },
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx", ".json", ".css", ".scss"],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', '.scss'],
     alias: {
-      "@app": root("app"),
+      '@app': root('app'),
     },
   },
   module: {
@@ -23,27 +27,27 @@ module.exports = {
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
       },
       {
         test: /\.svg$/,
         use: [
           {
-            loader: "babel-loader",
+            loader: 'babel-loader',
           },
           {
-            loader: "react-svg-loader",
+            loader: 'react-svg-loader',
           },
         ],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
         use: {
-          loader: "url-loader",
+          loader: 'url-loader',
           options: {
             limit: 10240,
-            outputPath: "static",
-            name: "[name]_[contenthash:6].[ext]",
+            outputPath: 'static',
+            name: '[name]_[contenthash:6].[ext]',
             publicPath: PUBLIC_PATH ? `${PUBLIC_PATH}static` : undefined,
           },
         },
@@ -52,10 +56,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: process.env.NODE_ENV,
-      template: "./public/index.html",
-      filename: "./index.html",
-      chunks: ["index", "vendor"],
+      template: './public/index.ejs',
+      filename: './index.html',
+      templateParameters: {
+        ENV,
+        resetStyle,
+      },
     }),
   ],
 };
