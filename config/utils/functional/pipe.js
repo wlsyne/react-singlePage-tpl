@@ -1,6 +1,11 @@
 const pipe = (...fns) => {
+  if (fns.length === 0) {
+    throw new Error('pipe requires at least one argument');
+  }
   return fns.reduce((acc, fn) => {
-    return (...args) => fn(acc(...args));
+    return function (...args) {
+      return fn.call(this, acc.apply(this, args));
+    };
   });
 };
 
