@@ -10,7 +10,7 @@ const App: React.FC = () => {
   return (
     <div styleName="app">
       <LazyComp>
-        <Title />
+        <Title name={'Alan'} />
       </LazyComp>
       <img src={spacemanImg} />
     </div>

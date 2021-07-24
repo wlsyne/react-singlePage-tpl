@@ -1,11 +1,9 @@
 import { pipe } from '../pipe';
 
-const { expect } = require('chai');
-
 describe('pipe', () => {
   it('is a function', async () => {
-    expect(typeof pipe).to.equal('function');
-    expect(pipe.length).to.equal(0);
+    expect(typeof pipe).toBe('function');
+    expect(pipe.length).toBe(0);
   });
 
   it('performs left-to-right function composition', () => {
@@ -16,8 +14,8 @@ describe('pipe', () => {
     const fn_1 = pipe(addOne, square, minusOne);
     const fn_2 = pipe(minusOne, square, addOne);
 
-    expect(fn_1(2)).to.equal(8);
-    expect(fn_2(2)).to.equal(2);
+    expect(fn_1(2)).toBe(8);
+    expect(fn_2(2)).toBe(2);
   });
 
   it('passes context to functions', () => {
@@ -36,11 +34,12 @@ describe('pipe', () => {
       y: 2,
       z: 1,
     };
-    expect(context.a(5)).to.equal(40);
+    expect(context.a(5)).toBe(40);
   });
 
   it('can be applied to one argument', () => {
-    const fn = () => pipe();
-    expect(pipe).to.throw(Error, 'pipe requires at least one argument');
+    expect(() => {
+      pipe();
+    }).toThrow('pipe requires at least one argument');
   });
 });

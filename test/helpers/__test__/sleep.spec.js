@@ -1,13 +1,10 @@
-import { sleep } from '../sleep';
-const { expect } = require('chai');
+import { sleep } from '@test-helpers/sleep';
 
 describe('sleep', () => {
-  it('sleep correct time', (done) => {
+  it('sleep correct time', async () => {
     const startTime = performance.now();
-    sleep(1000).then(() => {
-      const endTime = performance.now();
-      expect(endTime - startTime).to.be.closeTo(1000, 10);
-      done();
-    });
+    await sleep(1000);
+    const endTime = performance.now();
+    expect(endTime - startTime).toBeLessThan(1010);
   });
 });
