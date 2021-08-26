@@ -1,8 +1,7 @@
-e2e/
-cypress/
-__test__
+dist
+config
+__mocks__
+**/__test__/**
 test/
-rollup.config.js
 .babelrc.js
 .eslintrc.js
-packages/throne-presets

@@ -8,12 +8,12 @@ describe('测试Title组件', () => {
     act(() => {
       render(<Title />);
     });
-    expect(screen.queryByText("Hello! It's")).toBeInTheDocument();
+    expect(screen.queryByText("Hello! It's 0")).toBeInTheDocument();
   });
   it('测试组件的props', () => {
     act(() => {
       render(<Title name="Alan" />);
     });
-    expect(screen.queryByText("Hello! It's Alan")).toBeInTheDocument();
+    expect(screen.queryByText("Hello! It's Alan 0")).toBeInTheDocument();
   });
 });

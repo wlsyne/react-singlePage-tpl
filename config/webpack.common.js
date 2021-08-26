@@ -1,11 +1,28 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const { root } = require('./utils/utils');
-const { PUBLIC_PATH, ENV } = require('./env/index');
+const { PUBLIC_PATH, ENV, NEED_ANALYSIS } = require('./env/index');
 const { compressCss } = require('./utils/compressCss');
 
 const resetStyle = compressCss(resolve(__dirname, '../public/style/reset.css'));
+
+const plugins = [
+  new HtmlWebpackPlugin({
+    template: './public/index.ejs',
+    filename: './index.html',
+    templateParameters: {
+      ENV,
+      resetStyle,
+    },
+  }),
+];
+
+if (NEED_ANALYSIS) {
+  plugins.push(new BundleAnalyzerPlugin());
+}
+
 module.exports = {
   entry: {
     index: '@app/index',
@@ -14,7 +31,7 @@ module.exports = {
   output: {
     path: root('dist'),
     publicPath: PUBLIC_PATH,
-    filename: 'js/[name].js',
+    filename: 'js/[name].[contenthash].js',
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', '.scss'],
@@ -54,14 +71,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.ejs',
-      filename: './index.html',
-      templateParameters: {
-        ENV,
-        resetStyle,
-      },
-    }),
-  ],
+  plugins,
 };

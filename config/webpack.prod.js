@@ -52,10 +52,24 @@ module.exports = merge(common, {
     ],
   },
   optimization: {
-    // splitChunks: {
-    //   name: 'vendor',
-    //   chunks: 'initial',
-    // },
+    splitChunks: {
+      name: 'vendor',
+      chunks: 'all', //将所有的node_modules中用到的包打进一个chunk
+      maxInitialRequests: Infinity, //当前http2多路复用不用担心包的问题
+      minSize: 0, //最小分包大小默认是20k
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name(module) {
+            // get the name. E.g. node_modules/packageName/not/this/part.js
+            // or node_modules/packageName
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            // npm package names are URL-safe, but some servers don't like @ symbols
+            return `npm.${packageName.replace('@', '')}`;
+          },
+        },
+      },
+    },
     minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
     usedExports: true,
   },
