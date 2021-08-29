@@ -1,9 +1,8 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const { root } = require('./utils/utils');
-const { PUBLIC_PATH, ENV, NEED_ANALYSIS } = require('./env/index');
+const { PUBLIC_PATH, ENV, NEED_ANALYSIS, NEED_SMP } = require('./env/index');
 const { compressCss } = require('./utils/compressCss');
 
 const resetStyle = compressCss(resolve(__dirname, '../public/style/reset.css'));
@@ -20,7 +19,13 @@ const plugins = [
 ];
 
 if (NEED_ANALYSIS) {
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
   plugins.push(new BundleAnalyzerPlugin());
+}
+
+if (NEED_SMP) {
+  const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+  plugins.push(new SpeedMeasurePlugin());
 }
 
 module.exports = {
